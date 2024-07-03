@@ -1,13 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { HomeOutlined, EditTwoTone, SettingOutlined } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 const { Content, Footer, Sider } = Layout;
 // function getItem(label, key, icon, children) {
@@ -33,33 +27,43 @@ const { Content, Footer, Sider } = Layout;
 //   getItem("Files", "9", <FileOutlined />),
 // ];
 // eslint-disable-next-line react/prop-types
-
+// TODO: check connect router to this Layout
 const DEFAULT_ITEM = [
   {
     key: "1",
-    icon: <PieChartOutlined />,
-    label: "Dashboard",
+    icon: <HomeOutlined />,
+    label: "Home",
+    isActive: false,
   },
   {
     key: "2",
-    icon: <DesktopOutlined />,
-    label: "Option 2",
+    icon: <EditTwoTone />,
+    label: "Note",
+    isActive: true,
   },
   {
-    key: "sub1",
-    icon: <UserOutlined />,
-    label: "Admin",
+    key: "3",
+    icon: <SettingOutlined />,
+    label: "Setting",
     children: [
       {
-        key: "3",
-        label: "Setting",
+        key: "4",
+        icon: <HomeOutlined />,
+        label: "Profile",
+        isActive: false,
+      },
+      {
+        key: "5",
+        icon: <HomeOutlined />,
+        label: "Layout",
+        isActive: true,
       },
     ],
   },
 ];
 
 const LayoutAntd = ({
-  items = DEFAULT_ITEM,
+  menus = DEFAULT_ITEM,
   themeNameInit = "dark",
   collapsedInit = false,
   defaultSelectedKeysInit = "4",
@@ -89,7 +93,7 @@ const LayoutAntd = ({
           defaultSelectedKeys={defaultSelectedKeysInit}
           defaultOpenKeys={defaultOpenKeysInit}
           mode="inline"
-          items={items}
+          items={menus}
           {...props}
         />
       </Sider>
