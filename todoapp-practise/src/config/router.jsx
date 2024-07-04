@@ -1,33 +1,39 @@
-import { createBrowserRouter } from "react-router-dom";
-import RootLayout from "../components/RootLayout";
+/* eslint-disable react-refresh/only-export-components */
 import {
-  HomeOutlined,
   EditOutlined,
-  SettingOutlined,
-  ProfileOutlined,
+  HomeOutlined,
   LayoutOutlined,
+  ProfileOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
+import { createBrowserRouter, redirectDocument } from "react-router-dom";
+import RootLayout from "../components/RootLayout";
 
-export const Setting = () => {
-  //TODO: solve st here render setting profile by useEffect
+const redirect = (condition, redirect) => {
+  return async () => {
+    if (window.location.pathname === condition) {
+      return redirectDocument(redirect);
+    }
+    return null;
+  };
 };
 
 export const rootConfig = [
   {
-    path: "/",
     element: <RootLayout />,
-    errorElement: <h1>404 Not Found</h1>,
     children: [
       {
         index: true,
-        //TODO: solve somthing here for router home
-        path: "/home",
         menu: {
           key: "home",
           icon: <HomeOutlined />,
           label: "Home",
         },
-        element: <h1>This is Home Page</h1>,
+        element: <h1>This is Home page</h1>,
+      },
+      {
+        path: "home",
+        element: <h1>This is Home page</h1>,
       },
       {
         path: "note",
@@ -36,54 +42,39 @@ export const rootConfig = [
           icon: <EditOutlined />,
           label: "Note",
         },
-        element: <h1>This is Note Page</h1>,
+        element: <h1>This is Note page</h1>,
         children: [
           {
-            key: ":folderId",
-            element: <h1>This is Note Detail Page</h1>,
+            path: ":folderId",
+            element: <h1>This is Folder Detail page</h1>,
             children: [
               {
-                index: true,
-                element: <h1>This is Note View Page</h1>,
+                path: "create",
+                element: <h1>This is Note New page</h1>,
               },
               {
-                key: "create",
-                element: <h1>This is Note Create Page</h1>,
+                path: "update",
+                element: <h1>This is Note Edit page</h1>,
               },
               {
-                key: "replace",
-                element: <h1>This is Note Replace Page</h1>,
+                path: "delete",
+                element: <h1>This is Note Delete page</h1>,
               },
               {
-                key: "update",
-                element: <h1>This is Note Update Page</h1>,
-              },
-              {
-                key: "delete",
-                element: <h1>This is Note Delete Page</h1>,
-              },
-              {
-                key: ":nodeId",
+                path: ":noteId",
+                element: <h1>This is Note Detail page</h1>,
                 children: [
                   {
-                    key: "",
-                    element: <h1>This is Note Detail Page</h1>,
+                    path: "create",
+                    element: <h1>This is Note New page</h1>,
                   },
                   {
-                    key: "replace",
-                    element: <h1>This is Note Replace Page</h1>,
+                    path: "update",
+                    element: <h1>This is Note Edit page</h1>,
                   },
                   {
-                    key: "create",
-                    element: <h1>This is Note Create Page</h1>,
-                  },
-                  {
-                    key: "edit",
-                    element: <h1>This is Note Edit Page</h1>,
-                  },
-                  {
-                    key: "delete",
-                    element: <h1>This is Note Delete Page</h1>,
+                    path: "delete",
+                    element: <h1>This is Note Delete page</h1>,
                   },
                 ],
               },
@@ -92,15 +83,13 @@ export const rootConfig = [
         ],
       },
       {
-        path: "/settings",
+        path: "settings",
         menu: {
           key: "settings",
           icon: <SettingOutlined />,
           label: "Settings",
         },
-        element: <h1>This is Setting Page</h1>,
-        //TODO: fix st here for layout setting page
-        //TODO: loader etc...
+        loader: redirect("/settings", "/settings/profile"),
         children: [
           {
             path: "profile",
@@ -109,7 +98,7 @@ export const rootConfig = [
               icon: <ProfileOutlined />,
               label: "Profile",
             },
-            element: <h1>This is Profile Page</h1>,
+            element: <h1>This is Profile page</h1>,
           },
           {
             path: "layout",
@@ -118,13 +107,14 @@ export const rootConfig = [
               icon: <LayoutOutlined />,
               label: "Layout",
             },
-            element: <h1>This is Layout Page</h1>,
+            element: <h1>This is Layout page</h1>,
           },
         ],
       },
     ],
   },
 ];
+
 const router = createBrowserRouter(rootConfig);
 
 export default router;
