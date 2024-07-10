@@ -65,7 +65,6 @@ const getMenus = (menuConfig) => {
     return { ...menu };
   });
 };
-// TODO: defaultMenu here ???
 const isKeyInMenus = (key, menus) => {
   for (const item of menus) {
     if (item.key === key) {
@@ -84,12 +83,12 @@ const getDefaultSelectedAndOpenKeys = (menus) => {
   const currentPath = window.location.pathname;
   const path = currentPath.split("/").filter((item) => item);
   // defaultSelectedKeysInit la key trong default menu
-  // TODO: solve default Init here
+  // DONE: solve default Init here
   let defaultSelectedKeysInit = path[path.length - 1] || "home";
   const defaultOpenKeysInit = path.slice(0, 1).join("/");
   if (menus && !isKeyInMenus(defaultOpenKeysInit, menus)) {
     defaultSelectedKeysInit = defaultOpenKeysInit;
   }
-  //TODO: solve to hover menu of children of note here
+  //DONE: solve to hover menu of children of note here
   return { defaultSelectedKeysInit, defaultOpenKeysInit };
 };

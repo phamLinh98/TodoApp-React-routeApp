@@ -5,6 +5,7 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { redirectDocument } from "react-router-dom";
+
 const redirect = (condition, redirect) => {
   return async () => {
     if (window.location.pathname === condition) {
@@ -14,7 +15,7 @@ const redirect = (condition, redirect) => {
   };
 };
 
-export const settingRoute = [
+const settingRoute = [
   {
     path: "settings",
     menu: {
@@ -22,7 +23,6 @@ export const settingRoute = [
       icon: <SettingOutlined />,
       label: "Settings",
     },
-    // TODO: what is loader ? and redirect ?
     loader: redirect("/settings", "/settings/profile"),
     children: [
       {

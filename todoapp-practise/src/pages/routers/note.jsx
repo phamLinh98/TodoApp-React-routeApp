@@ -1,6 +1,7 @@
 import { EditOutlined } from "@ant-design/icons";
 import Notes from "../notes";
 import Folder from "../notes/folder";
+import Note from "../notes";
 
 const noteRoute = [
   {
@@ -10,8 +11,6 @@ const noteRoute = [
       icon: <EditOutlined />,
       label: "List Note",
     },
-    //TODO: solve route here for note
-    //TODO: solve index children here
     children: [
       {
         index: true,
@@ -41,7 +40,7 @@ const noteRoute = [
             children: [
               {
                 index: true,
-                element: <Notes />,
+                element: <Note />,
               },
               {
                 path: "create",
