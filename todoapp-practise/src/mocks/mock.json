@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "id": "1",
+      "name": "Folder 1",
+      "description": "This is Folder 1"
+    },
+    {
+      "id": "2",
+      "name": "Folder 2",
+      "description": "This is Folder 2"
+    },
+    {
+      "id": "3",
+      "name": "Folder 3",
+      "description": "This is Folder 3"
+    }
+  ]
+}

@@ -1,20 +1,24 @@
 import { EditOutlined } from "@ant-design/icons";
-import Notes from "../notes";
+import Notes, { loader as notesLoader } from "../notes";
 import Folder from "../notes/folder";
 import Note from "../notes";
 
+//TODO: adding loader for note
+//TODO: lazy loading by defer
+//TODO: solve data for node by load data
 const noteRoute = [
   {
     path: "note",
     menu: {
       key: "note",
       icon: <EditOutlined />,
-      label: "List Note",
+      label: "Notes",
     },
     children: [
       {
         index: true,
         element: <Notes />,
+        loader: notesLoader,
       },
       {
         path: ":folderId",

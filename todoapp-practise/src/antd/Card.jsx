@@ -2,7 +2,7 @@ import { Avatar, Card } from "antd";
 const { Meta } = Card;
 
 const AntdCard = ({
-  width = 300,
+  width = 350,
   cardCover,
   imgAlt = "example",
   avatar,
@@ -17,6 +17,7 @@ const AntdCard = ({
     cover={cardCover && <img alt={imgAlt} src={cardCover} />}
     actions={actions}
     className={className}
+    hoverable // tao hieu ung khi hover vao card
     {...props}
   >
     <Meta
