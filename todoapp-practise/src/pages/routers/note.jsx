@@ -2,15 +2,20 @@ import { EditOutlined } from "@ant-design/icons";
 import Notes, { loader as notesLoader } from "../notes";
 import Folder from "../notes/folder";
 import Note from "../notes";
+import CreateFolder, {
+  action as createFolderAction,
+} from "../notes/folder/create";
 
-//TODO: adding loader for note
-//TODO: lazy loading by defer
-//TODO: solve data for node by load data
+//TODO: adding loader for create
+//TODO: create route for create
+//TODO: fix some prop in form field
+//TODO: action
+
 const noteRoute = [
   {
-    path: "note",
+    path: "notes",
     menu: {
-      key: "note",
+      key: "notes",
       icon: <EditOutlined />,
       label: "Notes",
     },
@@ -29,7 +34,8 @@ const noteRoute = [
           },
           {
             path: "create",
-            element: <h1>This is Folder New Page</h1>,
+            element: <CreateFolder />,
+            action: createFolderAction,
           },
           {
             path: "update",

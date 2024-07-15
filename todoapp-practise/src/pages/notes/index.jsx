@@ -1,13 +1,34 @@
 import { Suspense } from "react";
 import Item from "../../components/notes/item";
-import { Spin } from "antd";
-import { Await, defer, Outlet, useLoaderData } from "react-router-dom";
+import { Button, Spin } from "antd";
+import {
+  Await,
+  defer,
+  Outlet,
+  useLoaderData,
+  useNavigate,
+} from "react-router-dom";
+import { get } from "../../utils/api";
 
 const Notes = () => {
   const { events } = useLoaderData();
-
+  const navigate = useNavigate();
+  //TODO: solve lazy loading for suitable
+  //TODO: solve content
+  //TODO: check folder and folder length
+  //TODO: solve data mock
+  //TODO: create button by antd
+  //TODO: adding navigation to create
   return (
     <>
+      <div className="flex gap-2 mb-4">
+        <h1 className="text-2xl font-semibold">List Folders</h1>
+        <div className="mb-4">
+          <Button type="primary" onClick={() => navigate("folders/create")}>
+            Create
+          </Button>
+        </div>
+      </div>
       <Suspense
         fallback={
           <Spin
@@ -15,9 +36,7 @@ const Notes = () => {
             tips="Loading"
             size="large"
             percent="auto"
-          >
-            <h1 className="text-2xl font-semibold">List Folders</h1>
-          </Spin>
+          ></Spin>
         }
       >
         <Await resolve={events}>
@@ -35,20 +54,28 @@ const Notes = () => {
               }
             >
               <Await resolve={events}>
-                {(folders) => (
-                  <>
-                    <h1 className="text-2xl font-semibold">List Folders</h1>
-                    <div className="flex flex-wrap gap-10 py-4 max-h-[calc(100vh-200px)] overflow-auto">
-                      {folders.map((folder, index) => (
-                        <Item
-                          key={folder.id || index}
-                          name={folder.name}
-                          description={folder.description}
-                        />
-                      ))}
-                    </div>
-                  </>
-                )}
+                {(folders) => {
+                  if (!folders || folders.length === 0) {
+                    return (
+                      <div className="flex justify-center items-center h-full">
+                        No Record For Showing
+                      </div>
+                    );
+                  }
+                  return (
+                    <>
+                      <div className="flex flex-wrap gap-10 py-4 max-h-[calc(100vh-200px)] overflow-auto">
+                        {folders.map((folder, index) => (
+                          <Item
+                            key={folder.id || index}
+                            name={folder.name}
+                            description={folder.description}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  );
+                }}
               </Await>
             </Suspense>
           </>
@@ -68,12 +95,8 @@ export const loadEvents = async () => {
     }, 500);
   });
 
-  const response = await fetch("http://localhost:3456/folders", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  // Solve  API list for folders
+  const response = await get("/folders");
 
   if (!response.ok) {
     throw new Error("Failed to fetch data");
