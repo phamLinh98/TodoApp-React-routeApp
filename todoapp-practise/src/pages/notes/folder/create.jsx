@@ -1,10 +1,3 @@
-//TODO: solve logic create
-//TODO: create input for create form
-//TODO: write function to redirect to create and solve logic
-//TODO: action
-//TODO: update function for form
-//TODO: env process
-
 import { Button, Input } from "antd";
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { post } from "../../../utils/api";

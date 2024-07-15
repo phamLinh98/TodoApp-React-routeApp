@@ -68,6 +68,7 @@ const Notes = () => {
                         {folders.map((folder, index) => (
                           <Item
                             key={folder.id || index}
+                            id={folder.id}
                             name={folder.name}
                             description={folder.description}
                           />

@@ -20,3 +20,14 @@ export const post = async (route, data) => {
     body: JSON.stringify(data),
   });
 };
+
+export const update = async (route, data) => {
+  const url = `${envConfig.host}${route}`;
+  return fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+};

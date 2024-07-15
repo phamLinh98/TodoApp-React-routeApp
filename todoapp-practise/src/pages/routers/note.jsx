@@ -5,11 +5,10 @@ import Note from "../notes";
 import CreateFolder, {
   action as createFolderAction,
 } from "../notes/folder/create";
-
-//TODO: adding loader for create
-//TODO: create route for create
-//TODO: fix some prop in form field
-//TODO: action
+import UpdateFolder, {
+  loaderUpdate as updateFolderLoader,
+  actionUpdate as updateFolderAction,
+} from "../notes/folder/update";
 
 const noteRoute = [
   {
@@ -38,8 +37,10 @@ const noteRoute = [
             action: createFolderAction,
           },
           {
-            path: "update",
-            element: <h1>This is Note Edit page</h1>,
+            path: "update/:id",
+            element: <UpdateFolder />,
+            loader: updateFolderLoader,
+            action: updateFolderAction,
           },
           {
             path: "delete",
