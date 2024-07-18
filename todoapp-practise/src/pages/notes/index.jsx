@@ -1,17 +1,10 @@
-import { Suspense } from "react";
 import Item from "../../components/notes/item";
-import { Button, Spin } from "antd";
-import {
-  Await,
-  defer,
-  Outlet,
-  useLoaderData,
-  useNavigate,
-} from "react-router-dom";
+import { Button } from "antd";
+import { defer, Outlet, useNavigate } from "react-router-dom";
 import { get } from "../../utils/api";
+import LazyLoading from "../../components/LazyLoading";
 
 const Notes = () => {
-  const { events } = useLoaderData();
   const navigate = useNavigate();
   return (
     <>
@@ -23,7 +16,7 @@ const Notes = () => {
           </Button>
         </div>
       </div>
-      <Suspense
+      {/* <Suspense
         fallback={
           <Spin
             className="flex justify-center items-center h-full scale-[2] mt-36"
@@ -74,7 +67,33 @@ const Notes = () => {
             </Suspense>
           </>
         </Await>
-      </Suspense>
+      </Suspense> */}
+      <LazyLoading>
+        {(folders) => {
+          if (!folders || folders.length === 0) {
+            return (
+              <div className="flex justify-center items-center h-full">
+                Data is empty. No records
+              </div>
+            );
+          }
+          return (
+            <div className="flex flex-wrap gap-10 py-4 max-h-[calc(100vh-200px)] overflow-auto">
+              {folders.map((folder, index) => (
+                <Item
+                  showClick={() => navigate(folder.id)}
+                  editClick={() => navigate(folder.id + "/update")}
+                  deleteClick={() => navigate(folder.id + "/delete")}
+                  key={folder.id || index}
+                  id={folder.id}
+                  name={folder.name}
+                  description={folder.description}
+                />
+              ))}
+            </div>
+          );
+        }}
+      </LazyLoading>
       <Outlet />
     </>
   );
@@ -82,24 +101,16 @@ const Notes = () => {
 
 export default Notes;
 
-export const loadEvents = async () => {
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 500);
-  });
-
-  // Solve  API list for folders
+export const loaderEvents = async () => {
   const response = await get("/folders");
-
   if (!response.ok) {
-    throw new Error("Failed to fetch data");
+    throw new Error("Failed to fetch folders");
   }
   return response.json();
 };
 
 export function loader() {
   return defer({
-    events: loadEvents(),
+    event: loaderEvents(),
   });
 }
