@@ -42,3 +42,8 @@ const Item = ({
   );
 };
 export default Item;
+
+// gỉa sử tôi có 1 danh sách  Item với 5 phần tử id lần lượt là 1, 2 , 3
+// nếu tôi đang đứng ở Item list và click vào nút edit của 1 item thì tôi muốn nó chuyển trang sang
+// trang edit của bản ghi id tương ứng
+// xử lý ở EditOutlined giúp tôi

@@ -61,7 +61,7 @@ export async function action({ request }) {
       description,
     });
     return redirect("/notes");
-  } catch (e) {
+  } catch (error) {
     return { error: "Error updating folder" };
   }
 }
