@@ -1,16 +1,12 @@
 import { EditOutlined } from "@ant-design/icons";
 import Notes, { loader as notesLoader } from "../notes";
-import Folder from "../notes/folder";
+import Folder, { loader as folderLoader } from "../notes/folder";
 import Note from "../notes";
 import CreateFolder, {
   action as createFolderAction,
 } from "../notes/folder/create";
 
-//TODO: adding loader for create
-//TODO: create route for create
-//TODO: fix some prop in form field
-//TODO: action
-
+import UpdateFolder from "../notes/folder/update";
 const noteRoute = [
   {
     path: "notes",
@@ -31,6 +27,7 @@ const noteRoute = [
           {
             index: true,
             element: <Folder />,
+            loader: folderLoader,
           },
           {
             path: "create",
@@ -39,7 +36,7 @@ const noteRoute = [
           },
           {
             path: "update",
-            element: <h1>This is Note Edit page</h1>,
+            element: <UpdateFolder />,
           },
           {
             path: "delete",

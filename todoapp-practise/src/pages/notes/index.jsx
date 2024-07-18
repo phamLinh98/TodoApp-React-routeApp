@@ -13,12 +13,6 @@ import { get } from "../../utils/api";
 const Notes = () => {
   const { events } = useLoaderData();
   const navigate = useNavigate();
-  //TODO: solve lazy loading for suitable
-  //TODO: solve content
-  //TODO: check folder and folder length
-  //TODO: solve data mock
-  //TODO: create button by antd
-  //TODO: adding navigation to create
   return (
     <>
       <div className="flex gap-2 mb-4">

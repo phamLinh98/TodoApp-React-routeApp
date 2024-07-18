@@ -1,16 +1,44 @@
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import AntdCard from "../../antd/Card";
-const Item = ({ name, description }) => {
+import { useRef } from "react";
+
+const Item = ({
+  name,
+  description,
+  id,
+  showClick = () => console.log("showClick", id),
+  editClick = () => console.log("editClick", id),
+  deleteClick = () => console.log("deleteClick", id),
+  ...props
+}) => {
+  const onClickState = useRef("showClick");
+
+  const handleClick = () => {
+    if (onClickState.current === "editClick") {
+      editClick(id);
+    } else if (onClickState.current === "deleteClick") {
+      deleteClick(id);
+    } else showClick(id);
+  };
+
   return (
     <AntdCard
+      onClick={handleClick}
       className={"cursor-pointer"}
-      width={350}
       title={name}
       description={description}
-      hoverable
-      actions={[<EditOutlined key="edit" />, <DeleteOutlined key="del" />]}
+      actions={[
+        <EditOutlined
+          key="edit"
+          onClick={() => (onClickState.current = "editClick")}
+        />,
+        <DeleteOutlined
+          key="del"
+          onClick={() => (onClickState.current = "deleteClick")}
+        />,
+      ]}
+      {...props}
     />
   );
 };
-
 export default Item;
