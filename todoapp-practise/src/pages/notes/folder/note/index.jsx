@@ -1,10 +1,4 @@
 import { useParams } from "react-router-dom";
-//TODO: solve load folder
-//TODO: params asyns
-//TODO: for list, loader
-//TODO: solve Lazy loading here
-//TODO: solbe loader event, data json
-//TODO: custom component lazyloading for many times
 
 const Note = () => {
   const { noteId } = useParams();

@@ -21,7 +21,7 @@ export const post = async (route, data) => {
   });
 };
 
-export const update = async (route, data) => {
+export const put = async (route, data) => {
   const url = `${envConfig.host}${route}`;
   return fetch(url, {
     method: "PUT",
@@ -29,5 +29,15 @@ export const update = async (route, data) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
+  });
+};
+
+export const del = async (route) => {
+  const url = `${envConfig.host}${route}`;
+  return fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 };

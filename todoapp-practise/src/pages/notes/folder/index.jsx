@@ -36,7 +36,7 @@ export default Folder;
 export const loadEvent = async (folderId) => {
   const response = await get(`/folders/${folderId}`);
   if (!response.ok) {
-    throw new Error("Failed to fetch data");
+    throw new Error("Can't load folder");
   }
   return response.json();
 };

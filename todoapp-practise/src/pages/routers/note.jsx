@@ -6,10 +6,17 @@ import CreateFolder, {
   action as createFolderAction,
 } from "../notes/folder/create";
 
-import UpdateFolder from "../notes/folder/update";
+import UpdateFolder, {
+  action as updateFolderAction,
+} from "../notes/folder/update";
+import ErrorElement from "../../components/ErrorElement";
+import DeleteFolder, {
+  action as deleteFolderAction,
+} from "../notes/folder/delete";
 const noteRoute = [
   {
     path: "notes",
+    errorElement: <ErrorElement />,
     menu: {
       key: "notes",
       icon: <EditOutlined />,
@@ -37,10 +44,14 @@ const noteRoute = [
           {
             path: "update",
             element: <UpdateFolder />,
+            loader: folderLoader,
+            action: updateFolderAction,
           },
           {
             path: "delete",
-            element: <h1>This is Note Delete page</h1>,
+            element: <DeleteFolder />,
+            loader: folderLoader,
+            action: deleteFolderAction,
           },
           {
             path: ":noteId",

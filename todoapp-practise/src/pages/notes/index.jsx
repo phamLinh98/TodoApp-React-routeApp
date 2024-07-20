@@ -16,59 +16,6 @@ const Notes = () => {
           </Button>
         </div>
       </div>
-      {/* <Suspense
-        fallback={
-          <Spin
-            className="flex justify-center items-center h-full scale-[2] mt-36"
-            tips="Loading"
-            size="large"
-            percent="auto"
-          ></Spin>
-        }
-      >
-        <Await resolve={events}>
-          <>
-            <Suspense
-              fallback={
-                <Spin
-                  className="flex justify-center items-center h-full scale-[2] mt-36"
-                  tip="Loading"
-                  size="large"
-                  percent="auto"
-                >
-                  <h1 className="text-2xl font-semibold">List Folders</h1>
-                </Spin>
-              }
-            >
-              <Await resolve={events}>
-                {(folders) => {
-                  if (!folders || folders.length === 0) {
-                    return (
-                      <div className="flex justify-center items-center h-full">
-                        No Record For Showing
-                      </div>
-                    );
-                  }
-                  return (
-                    <>
-                      <div className="flex flex-wrap gap-10 py-4 max-h-[calc(100vh-200px)] overflow-auto">
-                        {folders.map((folder, index) => (
-                          <Item
-                            key={folder.id || index}
-                            id={folder.id}
-                            name={folder.name}
-                            description={folder.description}
-                          />
-                        ))}
-                      </div>
-                    </>
-                  );
-                }}
-              </Await>
-            </Suspense>
-          </>
-        </Await>
-      </Suspense> */}
       <LazyLoading>
         {(folders) => {
           if (!folders || folders.length === 0) {
@@ -102,7 +49,7 @@ const Notes = () => {
 
 export default Notes;
 
-export const loaderEvents = async () => {
+export const loaderFolder = async () => {
   const response = await get("/folders");
   if (!response.ok) {
     throw new Error("Failed to fetch folders");
@@ -112,6 +59,6 @@ export const loaderEvents = async () => {
 
 export function loader() {
   return defer({
-    event: loaderEvents(),
+    event: loaderFolder(),
   });
 }
