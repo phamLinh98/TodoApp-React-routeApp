@@ -7,7 +7,6 @@ const DeleteFolder = () => {
   const submit = useSubmit();
   const handleDelete = (event) => {
     event.preventDefault();
-
     toast.warn(
       <div>
         <p>Xoá không em ê ?</p>
@@ -54,7 +53,7 @@ const DeleteFolder = () => {
               onSubmit={(event) => handleDelete(event)}
               className="flex flex-col space-y-2 p-4 border border-gray-200 rounded-md shadow gay-2 mt-2 hover:shadow-lg transition duration-300 ease-in-out"
             >
-              <h2 className="text-lg font-semibold">Folder{folder.name}</h2>
+              <h2 className="text-lg font-semibold">Folder {folder.name}</h2>
               <div className="text-sm text-gray-500">
                 This is content of Folder: {folder.description}
               </div>
@@ -106,13 +105,13 @@ export const loader = ({ params }) => {
   });
 };
 
-export async function action({ resquest }) {
-  const formData = await resquest.formData();
+export async function action({ request }) {
+  const formData = await request.formData();
   const folderId = formData.get("folderId");
   try {
-    await del("/folders/" + folderId);
+    await del(`/folders/` + folderId);
     return redirect("/notes");
   } catch (error) {
-    return { error: "Failed to delete folder.Please try again" };
+    return { error: "Error deleting folder" };
   }
 }
