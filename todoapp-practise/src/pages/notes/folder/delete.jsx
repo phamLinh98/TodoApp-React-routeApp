@@ -3,10 +3,6 @@ import { del, get } from "../../../utils/api";
 import { defer, Form, redirect, useSubmit } from "react-router-dom";
 import AntdModal from "../../../components/Models";
 
-//TODO: fix model in delete, not using route , using popup
-//TODO: custom button Calcel and Delete button in popup
-//TODO: footer popup === false/null
-
 const DeleteFolder = () => {
   const submit = useSubmit();
   return (

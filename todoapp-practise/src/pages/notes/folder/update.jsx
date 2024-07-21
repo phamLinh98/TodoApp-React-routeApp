@@ -87,6 +87,7 @@ export default UpdateFolder;
 export async function action({ request, params }) {
   const formData = await request.formData();
   const originalFolder = JSON.parse(formData.get("originalFolder"));
+  // >> originalFolder = {name:..., description:...} >> folder lazy loading
   const folderName = formData.get("folderName");
   const description = formData.get("description");
   if (

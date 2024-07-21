@@ -3,8 +3,6 @@ import LazyLoading from "../../../components/LazyLoading";
 import { get } from "../../../utils/api";
 import { defer, useNavigate } from "react-router-dom";
 
-// TODO: adding button come back of folder detail
-
 const Folder = () => {
   const navigate = useNavigate();
   return (
