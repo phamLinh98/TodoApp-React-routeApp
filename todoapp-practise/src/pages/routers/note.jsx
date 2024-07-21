@@ -1,7 +1,6 @@
 import { EditOutlined } from "@ant-design/icons";
 import Notes, { loader as notesLoader } from "../notes";
 import Folder, { loader as folderLoader } from "../notes/folder";
-import Note from "../notes";
 import CreateFolder, {
   action as createFolderAction,
 } from "../notes/folder/create";
@@ -13,6 +12,8 @@ import ErrorElement from "../../components/ErrorElement";
 import DeleteFolder, {
   action as deleteFolderAction,
 } from "../notes/folder/delete";
+import Note from "../notes/folder/note";
+
 const noteRoute = [
   {
     path: "notes",
@@ -27,6 +28,19 @@ const noteRoute = [
         index: true,
         element: <Notes />,
         loader: notesLoader,
+      },
+      {
+        path: ":folderId",
+        element: <Notes />,
+        loader: notesLoader,
+        children: [
+          {
+            path: "delete",
+            element: <DeleteFolder />,
+            loader: folderLoader,
+            action: deleteFolderAction,
+          },
+        ],
       },
       {
         path: ":folderId",
@@ -46,12 +60,6 @@ const noteRoute = [
             element: <UpdateFolder />,
             loader: folderLoader,
             action: updateFolderAction,
-          },
-          {
-            path: "delete",
-            element: <DeleteFolder />,
-            loader: folderLoader,
-            action: deleteFolderAction,
           },
           {
             path: ":noteId",

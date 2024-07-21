@@ -1,43 +1,17 @@
-import { toast } from "react-toastify";
 import LazyLoading from "../../../components/LazyLoading";
 import { del, get } from "../../../utils/api";
 import { defer, Form, redirect, useSubmit } from "react-router-dom";
+import AntdModal from "../../../components/Models";
+
+//TODO: fix model in delete, not using route , using popup
+//TODO: custom button Calcel and Delete button in popup
+//TODO: footer popup === false/null
 
 const DeleteFolder = () => {
   const submit = useSubmit();
-  const handleDelete = (event) => {
-    event.preventDefault();
-    toast.warn(
-      <div>
-        <p>Xoá không em ê ?</p>
-        <div className="mt-2">
-          <button
-            onClick={() => {
-              toast.dismiss();
-              submit(event.target, { method: "delete" });
-            }}
-            className="bg-red-500 text-white px-3 py-1 rounded-md mr-2"
-          >
-            Yes
-          </button>
-          <button
-            onClick={() => toast.dismiss()}
-            className="bg-gray-200 text-gray-800 px-3 py-1 rounded-md"
-          >
-            No
-          </button>
-        </div>
-      </div>,
-      {
-        position: "top-center",
-      }
-    );
-  };
   return (
-    <>
-      <h1 className="text-2xl font-semibold">
-        Do you want to delete this folder ?
-      </h1>
+    <AntdModal open={true} closable={false} footer={null}>
+      <h1 className="text-2xl font-semibold">Xoá folder này nhé ?</h1>
       <LazyLoading>
         {(folder) => {
           if (!folder) {
@@ -50,7 +24,10 @@ const DeleteFolder = () => {
           return (
             <Form
               method="post"
-              onSubmit={(event) => handleDelete(event)}
+              onSubmit={(event) => {
+                event.preventDefault();
+                submit(event.target, { method: "delete" });
+              }}
               className="flex flex-col space-y-2 p-4 border border-gray-200 rounded-md shadow gay-2 mt-2 hover:shadow-lg transition duration-300 ease-in-out"
             >
               <h2 className="text-lg font-semibold">Folder {folder.name}</h2>
@@ -85,7 +62,7 @@ const DeleteFolder = () => {
           );
         }}
       </LazyLoading>
-    </>
+    </AntdModal>
   );
 };
 

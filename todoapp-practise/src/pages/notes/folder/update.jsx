@@ -1,13 +1,19 @@
 import { Button, Input } from "antd";
-import { useActionData, useNavigation, Form } from "react-router-dom";
+import {
+  useActionData,
+  useNavigation,
+  Form,
+  useNavigate,
+} from "react-router-dom";
 import { put } from "../../../utils/api";
 import { redirect } from "react-router-dom";
 import LazyLoading from "../../../components/LazyLoading";
 
 const UpdateFolder = () => {
-  const navigate = useNavigation();
+  const navigation = useNavigation();
   const actionData = useActionData();
-  const isSubmiting = navigate.state === "submitting";
+  const navigate = useNavigate();
+  const isSubmiting = navigation.state === "submitting";
   return (
     <div className="mb-4">
       <h1 className="text-2xl font-semibold mb-4">Edit Folder</h1>
@@ -58,10 +64,15 @@ const UpdateFolder = () => {
                   value={JSON.stringify(folder)}
                 />
               </div>
-              <div className="text-right">
-                <Button type="primary" htmlType="submit">
-                  {isSubmiting ? "Submiting..." : "Submit"}
-                </Button>
+              <div className="flex justify-end">
+                <div className="flex gap-2">
+                  <Button onClick={() => navigate("/notes")} type="default">
+                    Cancel
+                  </Button>
+                  <Button type="primary" htmlType="submit">
+                    {isSubmiting ? "Submiting..." : "Submit"}
+                  </Button>
+                </div>
               </div>
             </Form>
           );

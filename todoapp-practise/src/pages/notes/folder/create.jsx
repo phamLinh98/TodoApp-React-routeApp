@@ -2,6 +2,8 @@ import { Button, Input } from "antd";
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { post } from "../../../utils/api";
 
+//TODO: adding regex for validate when input create, for mail
+
 const CreateFolder = () => {
   const navigation = useNavigation();
   const actionData = useActionData();
@@ -53,6 +55,9 @@ export async function action({ request }) {
   const formData = await request.formData();
   const folderName = formData.get("folderName");
   const description = formData.get("description");
+  if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(folderName)) {
+    return { error: "Folder name must be a valid email address" };
+  }
   try {
     await post("/folders", {
       name: folderName,
