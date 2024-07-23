@@ -5,9 +5,8 @@ import { Await, useLoaderData } from "react-router-dom";
 const DefaultLoadingUI = () => {
   return (
     <Spin
-      className="flex justify-center items-center h-full scale-[2] mt-36"
+      className="flex justify-center items-center h-full scale-[2] -translate-x-5 mt-14 mb-16"
       size="large"
-      percent="auto"
     ></Spin>
   );
 };

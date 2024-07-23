@@ -8,12 +8,17 @@ import {
 import { put } from "../../../utils/api";
 import { redirect } from "react-router-dom";
 import LazyLoading from "../../../components/LazyLoading";
+import { useState } from "react";
+import ReactQuill from "react-quill";
+
+//TODO: adding reactQuill
 
 const UpdateFolder = () => {
   const navigation = useNavigation();
   const actionData = useActionData();
   const navigate = useNavigate();
   const isSubmiting = navigation.state === "submitting";
+  const [description, setDescription] = useState("");
   return (
     <div className="mb-4">
       <h1 className="text-2xl font-semibold mb-4">Edit Folder</h1>
@@ -45,12 +50,15 @@ const UpdateFolder = () => {
                 <label htmlFor="description" className="block mb-2">
                   Description
                 </label>
-                <Input.TextArea
+                <Input
+                  hidden
                   id="description"
                   name="description"
-                  required
-                  className="w-full"
-                  disabled={isSubmiting}
+                  value={description}
+                ></Input>
+                <ReactQuill
+                  theme="snow"
+                  onChange={setDescription}
                   defaultValue={folder.description}
                 />
               </div>

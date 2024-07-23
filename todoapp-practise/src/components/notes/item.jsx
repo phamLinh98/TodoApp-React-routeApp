@@ -1,22 +1,21 @@
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import AntdCard from "../../antd/Card";
-import { useRef } from "react";
 
 const Item = ({
   name,
   description,
   id,
-  showClick = () => console.log("showClick", id),
-  editClick = () => console.log("editClick", id),
-  deleteClick = () => console.log("deleteClick", id),
+  showClick,
+  editClick,
+  deleteClick,
   ...props
 }) => {
-  const onClickState = useRef("showClick");
+  let onClickState = "showClick";
 
   const handleClick = () => {
-    if (onClickState.current === "editClick") {
+    if (onClickState === "editClick") {
       editClick(id);
-    } else if (onClickState.current === "deleteClick") {
+    } else if (onClickState === "deleteClick") {
       deleteClick(id);
     } else showClick(id);
   };
@@ -26,15 +25,18 @@ const Item = ({
       onClick={handleClick}
       className={"cursor-pointer"}
       title={name}
-      description={description}
+      description={
+        <div dangerouslySetInnerHTML={{ __html: description }}></div>
+      }
+      //NOTE: see this actions
       actions={[
         <EditOutlined
           key="edit"
-          onClick={() => (onClickState.current = "editClick")}
+          onClick={() => (onClickState = "editClick")}
         />,
         <DeleteOutlined
           key="del"
-          onClick={() => (onClickState.current = "deleteClick")}
+          onClick={() => (onClickState = "deleteClick")}
         />,
       ]}
       {...props}

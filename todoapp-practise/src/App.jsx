@@ -3,6 +3,7 @@ import "./App.scss";
 import router from "./pages/routers/root";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import "react-quill/dist/quill.snow.css";
 
 function App() {
   return (

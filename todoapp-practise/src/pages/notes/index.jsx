@@ -12,7 +12,7 @@ const Notes = () => {
         <h1 className="text-2xl font-semibold">List Folders</h1>
         <div className="mb-4">
           <Button type="primary" onClick={() => navigate("folders/create")}>
-            Create
+            Create Folders
           </Button>
         </div>
       </div>
