@@ -26,7 +26,11 @@ const Item = ({
       className={"cursor-pointer"}
       title={name}
       description={
-        <div dangerouslySetInnerHTML={{ __html: description }}></div>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: description.split(/<\/?h[1-2]>/)[1],
+          }}
+        />
       }
       //NOTE: see this actions
       actions={[

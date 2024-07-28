@@ -1,11 +1,12 @@
 import Item from "../../components/notes/item";
 import { Button } from "antd";
-import { defer, Outlet, useNavigate } from "react-router-dom";
+import { defer, Outlet, useLoaderData, useNavigate } from "react-router-dom";
 import { get } from "../../utils/api";
 import LazyLoading from "../../components/LazyLoading";
 
 const Notes = () => {
   const navigate = useNavigate();
+  const { event } = useLoaderData();
   return (
     <>
       <div className="flex gap-2 mb-4">
@@ -16,7 +17,7 @@ const Notes = () => {
           </Button>
         </div>
       </div>
-      <LazyLoading>
+      <LazyLoading event={event}>
         {(folders) => {
           if (!folders || folders.length === 0) {
             return (

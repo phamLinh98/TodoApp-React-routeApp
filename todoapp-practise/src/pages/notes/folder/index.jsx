@@ -1,14 +1,15 @@
 import { Button } from "antd";
 import LazyLoading from "../../../components/LazyLoading";
 import { get } from "../../../utils/api";
-import { defer, Outlet, useNavigate } from "react-router-dom";
+import { defer, Outlet, useLoaderData, useNavigate } from "react-router-dom";
 
 const Folder = () => {
   const navigate = useNavigate();
+  const { event } = useLoaderData();
   return (
     <>
       <h1 className="text-2xl font-semibold">Folder Detail</h1>
-      <LazyLoading>
+      <LazyLoading event={event}>
         {(folder) => {
           if (!folder) {
             return (
@@ -25,7 +26,7 @@ const Folder = () => {
                   Description:{" "}
                   {
                     <div
-                      dangerouslySetInnerHTML={{ __html: folder.description }} // TODO: wat is this ?
+                      dangerouslySetInnerHTML={{ __html: folder.description }}
                     ></div>
                   }
                 </div>
@@ -59,8 +60,17 @@ export const loadEvent = async (folderId) => {
   return response.json();
 };
 
+export const loadEventForNotes = async (noteId) => {
+  const response = await get(`/notes/${noteId}`);
+  if (!response.ok) {
+    throw new Error("Can't load noteId");
+  }
+  return response.json();
+};
+
 export const loader = ({ params }) => {
   return defer({
     event: loadEvent(params.folderId),
+    events: loadEventForNotes(params.noteId),
   });
 };

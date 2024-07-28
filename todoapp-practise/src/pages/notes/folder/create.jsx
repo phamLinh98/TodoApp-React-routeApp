@@ -1,14 +1,16 @@
 import { Button, Input } from "antd";
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { post } from "../../../utils/api";
-import ReactQuill from "react-quill";
 import { useState } from "react";
+import NoteEditor from "../../../components/NoteEditor";
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 
 const CreateFolder = () => {
   const navigation = useNavigation();
   const actionData = useActionData();
   const isSubmiting = navigation.state === "submitting";
   const [description, setDescription] = useState("");
+  const [viewDescription, setViewDescription] = useState(false);
 
   return (
     <div className="mb-4">
@@ -37,17 +39,32 @@ const CreateFolder = () => {
             name="description"
             value="description"
           ></Input>
-          <ReactQuill
-            theme="snow"
-            value={description}
-            onChange={setDescription}
-          ></ReactQuill>
+          <div className="border border-gray-200 rounded-md p-2 mt-2">
+            <NoteEditor onChangeContent={setDescription} />
+          </div>
         </div>
         <div className="text-right">
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="default"
+            onClick={() => setViewDescription(!viewDescription)}
+          >
+            {viewDescription ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+            {viewDescription ? "Hide" : "View"}Description
+          </Button>
+          <Button
+            type="default"
+            onClick={() => setViewDescription(!viewDescription)}
+            htmlType="submit"
+          >
             {isSubmiting ? "Submiting..." : "Submit"}
           </Button>
         </div>
+        {viewDescription && (
+          <div
+            className="rich-text mt-2 border-gray-200 rounded-md p-2 max-h-[30vh] overflow-auto"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+        )}
       </Form>
       {actionData && actionData.error && (
         <p className="text-red-500 mt-4">{actionData.error}</p>
@@ -59,7 +76,7 @@ export default CreateFolder;
 
 export async function action({ request }) {
   const formData = await request.formData();
-  const folderName = formData.get("folderName"); // TODO: get data from input
+  const folderName = formData.get("folderName");
   const description = formData.get("description");
   if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(folderName)) {
     return { error: "Folder name must be a valid email address" };

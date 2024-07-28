@@ -1,6 +1,6 @@
 import { Spin } from "antd";
 import { Suspense } from "react";
-import { Await, useLoaderData } from "react-router-dom";
+import { Await } from "react-router-dom";
 
 const DefaultLoadingUI = () => {
   return (
@@ -11,8 +11,7 @@ const DefaultLoadingUI = () => {
   );
 };
 
-const LazyLoading = ({ children, LoadingUI = DefaultLoadingUI }) => {
-  const { event } = useLoaderData();
+const LazyLoading = ({ event, children, LoadingUI = DefaultLoadingUI }) => {
   return (
     <Suspense fallback={<LoadingUI />}>
       <Await resolve={event}>{children}</Await>

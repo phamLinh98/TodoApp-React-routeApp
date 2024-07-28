@@ -4,14 +4,14 @@ import {
   useNavigation,
   Form,
   useNavigate,
+  useLoaderData,
 } from "react-router-dom";
 import { put } from "../../../utils/api";
 import { redirect } from "react-router-dom";
 import LazyLoading from "../../../components/LazyLoading";
 import { useState } from "react";
-import ReactQuill from "react-quill";
-
-//TODO: adding reactQuill
+import NoteEditor from "../../../components/NoteEditor";
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 
 const UpdateFolder = () => {
   const navigation = useNavigation();
@@ -19,10 +19,12 @@ const UpdateFolder = () => {
   const navigate = useNavigate();
   const isSubmiting = navigation.state === "submitting";
   const [description, setDescription] = useState("");
+  const [viewDescription, setViewDescription] = useState(false);
+  const { event } = useLoaderData();
   return (
     <div className="mb-4">
       <h1 className="text-2xl font-semibold mb-4">Edit Folder</h1>
-      <LazyLoading>
+      <LazyLoading event={event}>
         {(folder) => {
           if (!folder) {
             return (
@@ -56,11 +58,12 @@ const UpdateFolder = () => {
                   name="description"
                   value={description}
                 ></Input>
-                <ReactQuill
-                  theme="snow"
-                  onChange={setDescription}
-                  defaultValue={folder.description}
-                />
+                <div className="border border-gray-200 rounded-md p-2 mt-2">
+                  <NoteEditor
+                    initialContent={folder.description}
+                    onChangeContent={setDescription}
+                  />
+                </div>
               </div>
               {actionData && actionData.error && (
                 <p className="text-red-500 mt-4">{actionData.error}</p>
@@ -74,6 +77,18 @@ const UpdateFolder = () => {
               </div>
               <div className="flex justify-end">
                 <div className="flex gap-2">
+                  <Button
+                    type="default"
+                    onClick={() => setViewDescription(!viewDescription)}
+                  >
+                    {viewDescription ? (
+                      <EyeInvisibleOutlined />
+                    ) : (
+                      <EyeOutlined />
+                    )}
+                    {viewDescription ? "Hide" : "Show"}
+                    Description
+                  </Button>
                   <Button onClick={() => navigate("/notes")} type="default">
                     Cancel
                   </Button>
