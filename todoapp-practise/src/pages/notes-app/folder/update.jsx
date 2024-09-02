@@ -10,7 +10,7 @@ import { put } from "../../../utils/api";
 import { redirect } from "react-router-dom";
 import LazyLoading from "../../../components/LazyLoading";
 import { useState } from "react";
-import NoteEditor from "../../../components/NoteEditor";
+import NoteEditor from "../../../components/notes/note/NoteEditor";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 
 //TODO: solve event for update

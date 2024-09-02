@@ -1,16 +1,18 @@
 import { EditOutlined } from "@ant-design/icons";
+import ErrorElement from "../components/ErrorElement";
 import NoteApps, { noteAppLoader } from "../pages/notes-app";
 import Folder, { folderLoader } from "../pages/notes-app/folder";
-import CreateFolder, {
-  createFolderAction,
-} from "../pages/notes-app/folder/create";
-import UpdateFolder, {
-  updateFolderAction,
-} from "../pages/notes-app/folder/update";
+import CreateFolder, {createFolderAction } from "../pages/notes-app/folder/create";
 import DeleteFolder, {
   deleteFolderAction,
 } from "../pages/notes-app/folder/delete";
-import Note, { noteLoader } from "../pages/notes-app/note";
+import Note from "../pages/notes-app/folder/note";
+import UpdateFolder, {
+  updateFolderAction,
+} from "../pages/notes-app/folder/update";
+import CreateNote, {
+  createNoteAction,
+} from "../pages/notes-app/folder/note/create";
 
 const noteAppRoute = [
   {
@@ -25,12 +27,12 @@ const noteAppRoute = [
       {
         index: true,
         element: <NoteApps />,
-        loader: notesAppLoader,
+        loader: noteAppLoader,
       },
       {
         path: ":folderId",
         element: <NoteApps />,
-        loader: notesAppLoader,
+        loader: noteAppLoader,
         children: [
           {
             path: "delete",
@@ -95,4 +97,5 @@ const noteAppRoute = [
     ],
   },
 ];
+
 export default noteAppRoute;

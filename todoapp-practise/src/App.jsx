@@ -1,6 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import "./App.scss";
-import router from "./pages/routers/root";
+import router from "./routers/root";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 

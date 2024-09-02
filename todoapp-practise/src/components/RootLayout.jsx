@@ -1,31 +1,28 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import LayoutAntd from "./Layout";
-import { rootConfig } from "../pages/routers/root";
+import { Outlet, useNavigate } from 'react-router-dom';
+import { rootConfig } from '../routers/root';
+import LayoutAntd from './Layout';
 
 const RootLayout = () => {
-  const menuConfig = rootConfig[0].children;
-  const menus = getMenus(menuConfig);
-  const { defaultOpenKeysInit, defaultSelectedKeysInit } =
-    getDefaultSelectedAndOpenKeys();
+  const menusConfig = rootConfig[0].children;
+  const menus = getMenus(menusConfig);
+  const { defaultSelectedKeysInit, defaultOpenKeysInit } = getDefaultSelectedAndOpenKeys(menus);
   const navigate = useNavigate();
 
   const handleOnClickLayout = (e) => {
     const { keyPath } = e;
-    const path = keyPath.reverse().join("/");
+    const path = keyPath.reverse().join('/');
     navigate(path);
   };
 
   return (
-    <>
-      <LayoutAntd
-        onClick={handleOnClickLayout}
-        defaultSelectedKeysInit={defaultSelectedKeysInit}
-        defaultOpenKeysInit={defaultOpenKeysInit}
-        menus={menus}
-      >
-        <Outlet />
-      </LayoutAntd>
-    </>
+    <LayoutAntd
+      onClick={handleOnClickLayout}
+      defaultSelectedKeysInit={defaultSelectedKeysInit}
+      defaultOpenKeysInit={defaultOpenKeysInit}
+      menus={menus}
+    >
+      <Outlet />
+    </LayoutAntd>
   );
 };
 
@@ -41,21 +38,18 @@ const getMenus = (menuConfig) => {
             key: root.menu.key,
             icon: root.menu.icon,
             label: root.menu.label,
-            children:
-              root.children && root.children?.length > 0
-                ? getRawMenus(root.children)
-                : undefined,
+            children: root.children && root.children?.length > 0 ? getRawMenus(root.children) : undefined,
           };
         }
         return null;
       });
   };
   return getRawMenus(menuConfig).map((menu) => {
-    let chidlren = [];
+    let children = [];
     if (menu?.children && menu?.children?.length > 0) {
-      chidlren = menu.children.filter((item) => item);
+      children = menu.children.filter((child) => child);
     }
-    if (chidlren.length === 0 && menu?.key) {
+    if (children.length === 0 && menu?.key) {
       return {
         key: menu?.key,
         icon: menu?.icon,
@@ -65,13 +59,14 @@ const getMenus = (menuConfig) => {
     return { ...menu };
   });
 };
+
 const isKeyInMenus = (key, menus) => {
   for (const item of menus) {
     if (item.key === key) {
       return true;
     }
-    if (item.chidlren && item.chidlren.length > 0) {
-      if (isKeyInMenus(key, item.chidlren)) {
+    if (item.children && item.children.length > 0) {
+      if (isKeyInMenus(key, item.children)) {
         return true;
       }
     }
@@ -81,11 +76,10 @@ const isKeyInMenus = (key, menus) => {
 
 const getDefaultSelectedAndOpenKeys = (menus) => {
   const currentPath = window.location.pathname;
-  const path = currentPath.split("/").filter((item) => item);
-  // defaultSelectedKeysInit la key trong default menu
-  let defaultSelectedKeysInit = path[path.length - 1] || "home";
-  const defaultOpenKeysInit = path.slice(0, 1).join("/");
-  if (menus && !isKeyInMenus(defaultOpenKeysInit, menus)) {
+  const path = currentPath.split('/').filter((item) => item);
+  let defaultSelectedKeysInit = path[path.length - 1] || 'home';
+  const defaultOpenKeysInit = path.slice(0, 1).join('/');
+  if (menus && !isKeyInMenus(defaultSelectedKeysInit, menus)) {
     defaultSelectedKeysInit = defaultOpenKeysInit;
   }
   return { defaultSelectedKeysInit, defaultOpenKeysInit };

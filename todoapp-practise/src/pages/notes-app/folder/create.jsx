@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { post } from "../../../utils/api";
 import { useState } from "react";
-import NoteEditor from "../../../components/NoteEditor";
+import NoteEditor from "../../../components/notes/note/NoteEditor";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 
 const CreateFolder = () => {
@@ -82,6 +82,7 @@ const CreateFolder = () => {
     </div>
   );
 };
+
 export default CreateFolder;
 
 export async function createFolderAction({ request }) {
