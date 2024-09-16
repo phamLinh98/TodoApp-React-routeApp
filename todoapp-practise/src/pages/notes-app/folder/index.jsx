@@ -4,6 +4,11 @@ import { get } from "../../../utils/api";
 import { defer, Outlet, useLoaderData, useNavigate } from "react-router-dom";
 import Item from "antd/es/list/Item";
 
+//TODO: adding Loader for this get data. defer for 2 object
+//TODO: solve lazy loading data (two Lazy Loading long nhau)
+//TODO: adding note title, content ...
+//TODO: content pass via p html
+
 const Folder = () => {
   const navigate = useNavigate();
   const { folderId } = useLoaderData();

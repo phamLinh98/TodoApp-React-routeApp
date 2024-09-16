@@ -9,6 +9,9 @@ import {
 } from "react-router-dom";
 import AntdModal from "../../../components/Models";
 
+//TODO: solve css for modal
+//TODO: content for this folder
+
 const DeleteFolder = () => {
   const submit = useSubmit();
   const { folder } = useLoaderData();

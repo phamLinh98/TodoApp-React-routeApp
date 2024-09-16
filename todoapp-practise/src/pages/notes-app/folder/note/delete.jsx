@@ -7,3 +7,7 @@ const DeleteNote = () => {
 };
 
 export default DeleteNote;
+
+//TODO: addding loader, LazyLoading
+//TODO: adding title, name
+//TODO: navigate to folder if cancel

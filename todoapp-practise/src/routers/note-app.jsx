@@ -2,7 +2,9 @@ import { EditOutlined } from "@ant-design/icons";
 import ErrorElement from "../components/ErrorElement";
 import NoteApps, { noteAppLoader } from "../pages/notes-app";
 import Folder, { folderLoader } from "../pages/notes-app/folder";
-import CreateFolder, {createFolderAction } from "../pages/notes-app/folder/create";
+import CreateFolder, {
+  createFolderAction,
+} from "../pages/notes-app/folder/create";
 import DeleteFolder, {
   deleteFolderAction,
 } from "../pages/notes-app/folder/delete";
@@ -13,6 +15,9 @@ import UpdateFolder, {
 import CreateNote, {
   createNoteAction,
 } from "../pages/notes-app/folder/note/create";
+
+//TODO: adding loader for routes
+//TODO: update delete, update and create route with lodaer and note
 
 const noteAppRoute = [
   {

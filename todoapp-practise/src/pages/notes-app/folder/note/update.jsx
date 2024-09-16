@@ -7,3 +7,6 @@ const UpdateNote = () => {
 };
 
 export default UpdateNote;
+
+//TODO: adding loader , defer to update from create
+//TODO: adding lazy loading

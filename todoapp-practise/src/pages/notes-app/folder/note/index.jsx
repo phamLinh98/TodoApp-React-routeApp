@@ -1,4 +1,8 @@
 import { useParams } from "react-router-dom";
+//TODO: adding note
+//TODO: solve antdModal
+//TODO: adding loader and LazyLoading
+//TODO: adding cancel button antd >> back to folder Id
 
 const Note = () => {
   const { noteId } = useParams();

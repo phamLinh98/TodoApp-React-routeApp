@@ -4,7 +4,6 @@ import { defer, Outlet, useLoaderData, useNavigate } from "react-router-dom";
 import { get } from "../../utils/api";
 import LazyLoading from "../../components/LazyLoading";
 
-//TODO: solve navigator
 const NoteApps = () => {
   const navigate = useNavigate();
   const { event } = useLoaderData();
