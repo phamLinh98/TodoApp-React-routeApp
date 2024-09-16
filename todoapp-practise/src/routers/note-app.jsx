@@ -1,20 +1,12 @@
 import { EditOutlined } from "@ant-design/icons";
 import ErrorElement from "../components/ErrorElement";
-import NoteApps, { noteAppLoader } from "../pages/notes-app";
+import NoteApps, { loader } from "../pages/notes-app";
 import Folder, { folderLoader } from "../pages/notes-app/folder";
-import CreateFolder, {
-  createFolderAction,
-} from "../pages/notes-app/folder/create";
-import DeleteFolder, {
-  deleteFolderAction,
-} from "../pages/notes-app/folder/delete";
+import CreateFolder, {createFolderAction} from "../pages/notes-app/folder/create";
+import DeleteFolder, {deleteFolderAction} from "../pages/notes-app/folder/delete";
 import Note from "../pages/notes-app/folder/note";
-import UpdateFolder, {
-  updateFolderAction,
-} from "../pages/notes-app/folder/update";
-import CreateNote, {
-  createNoteAction,
-} from "../pages/notes-app/folder/note/create";
+import UpdateFolder, {updateFolderAction} from "../pages/notes-app/folder/update";
+import CreateNote, {createNoteAction} from "../pages/notes-app/folder/note/create";
 
 //TODO: adding loader for routes
 //TODO: update delete, update and create route with lodaer and note
@@ -32,12 +24,12 @@ const noteAppRoute = [
       {
         index: true,
         element: <NoteApps />,
-        loader: noteAppLoader,
+        loader: loader,
       },
       {
         path: ":folderId",
         element: <NoteApps />,
-        loader: noteAppLoader,
+        loader: loader,
         children: [
           {
             path: "delete",
