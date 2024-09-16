@@ -9,9 +9,6 @@ import {
 } from "react-router-dom";
 import AntdModal from "../../../components/Models";
 
-//TODO: solve css for modal
-//TODO: content for this folder
-
 const DeleteFolder = () => {
   const submit = useSubmit();
   const { folder } = useLoaderData();
@@ -45,7 +42,10 @@ const DeleteFolder = () => {
               >
                 <h2 className="text-lg font-semibold">Folder {folder.name}</h2>
                 <div className="text-sm text-gray-500 max-h-[30vh] overflow-auto">
-                  This is content of Folder: {folder.description}
+                  This is content of Folder:{" "}
+                  <div
+                    dangerouslySetInnerHTML={{ __html: folder.description }}
+                  ></div>
                 </div>
                 <input type="hidden" name="folderName" value={folder.name} />
                 <input

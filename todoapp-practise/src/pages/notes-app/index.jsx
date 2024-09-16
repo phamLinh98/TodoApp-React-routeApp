@@ -27,7 +27,7 @@ const NoteApps = () => {
             );
           }
           return (
-            <div className="flex flex-wrap gap-10 py-4 max-h-[calc(100vh-200px)] overflow-auto">
+            <div className="flex flex-wrap gap-10 p-4 max-h-[calc(100vh-200px)] overflow-auto">
               {folders.map((folder, index) => (
                 <Item
                   showClick={(id) => navigate("/folders/" + id)}
